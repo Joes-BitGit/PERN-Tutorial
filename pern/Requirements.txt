@@ -1,0 +1,2 @@
+restaurants table
+name  location  price
