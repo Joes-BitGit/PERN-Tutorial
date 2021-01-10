@@ -41,7 +41,7 @@ app.get('/api/v1/restaurants', async (request, response) => {
       }
     });
   } catch (error) {
-    console.log('ERR: get all restaurants', error);
+    console.log('ERR, get all restaurants:', error);
     response.status(400)
   }
 
@@ -49,11 +49,9 @@ app.get('/api/v1/restaurants', async (request, response) => {
 
 // Get a restaurant
 app.get('/api/v1/restaurants/:id', async (request, response) => {
-
-
   try {
     const results = await db.query('SELECT * FROM restaurants WHERE id=$1', [request.params.id]);
-    console.log(results);
+
     response.status(200).json({
       staus: 'success',
       data: {
@@ -61,7 +59,7 @@ app.get('/api/v1/restaurants/:id', async (request, response) => {
       }
     })
   } catch (error) {
-    console.log('ERR: Get A Restaurant,', error);
+    console.log('ERR, Get A Restaurant:', error);
   }
 
 });
@@ -71,7 +69,7 @@ app.get('/api/v1/restaurants/:id', async (request, response) => {
 app.post('/api/v1/restaurants', async (request, response) => {
   try {
     const results = await db.query('INSERT INTO restaurants (name, location, price_range) VALUES ($1, $2, $3) returning *;', [request.body.name, request.body.location, request.body.price_range]);
-    console.log(results.rows);
+    // console.log(results.rows);
     response.status(201).json({
       staus: 'success',
       data: {
@@ -80,20 +78,29 @@ app.post('/api/v1/restaurants', async (request, response) => {
     })
 
   } catch (err) {
-    console.log('ERR, Create a Restaurant, ', err);
+    console.log('ERR, Create a Restaurant: ', err);
   }
 });
 
 // Update Restaurant
-app.put('/api/v1/restaurants/:id', (request, response) => {
-  console.log(request.params);
-  console.log(request.body);
-  response.status(200).json({
-    staus: 'success',
-    data: {
-      restaurant: 'mcdonalds'
-    }
-  })
+app.put('/api/v1/restaurants/:id', async (request, response) => {
+  // console.log(request.params);
+  // console.log(request.body);
+  try {
+    const results = await db.query(
+      'UPDATE restaurants SET name=$1, location=$2, price_range=$3 WHERE id=$4 returning *;',
+      [request.body.name, request.body.location, request.body.price_range, request.params.id]
+    );
+    console.log(results.rows[0]);
+    response.status(200).json({
+      staus: 'success',
+      data: {
+        restaurant: results.rows[0]
+      }
+    });
+  } catch (err) {
+    console.log('ERR, UPDATE: ', err);
+  }
 });
 
 // Delete Restaurant
