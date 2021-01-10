@@ -57,7 +57,7 @@ app.get('/api/v1/restaurants/:id', async (request, response) => {
     response.status(200).json({
       staus: 'success',
       data: {
-        restaurant: results.rows,
+        restaurant: results.rows[0],
       }
     })
   } catch (error) {
@@ -66,15 +66,22 @@ app.get('/api/v1/restaurants/:id', async (request, response) => {
 
 });
 
+
 // Create A Restaurant
-app.post('/api/v1/restaurants', (request, response) => {
-  console.log(request.body);
-  response.status(201).json({
-    staus: 'success',
-    data: {
-      restaurant: 'mcdonalds'
-    }
-  })
+app.post('/api/v1/restaurants', async (request, response) => {
+  try {
+    const results = await db.query('INSERT INTO restaurants (name, location, price_range) VALUES ($1, $2, $3) returning *;', [request.body.name, request.body.location, request.body.price_range]);
+    console.log(results.rows);
+    response.status(201).json({
+      staus: 'success',
+      data: {
+        restaurant: results.rows[0],
+      }
+    })
+
+  } catch (err) {
+    console.log('ERR, Create a Restaurant, ', err);
+  }
 });
 
 // Update Restaurant
