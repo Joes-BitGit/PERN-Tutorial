@@ -32,7 +32,7 @@ app.get('/api/v1/restaurants', async (request, response) => {
   // returns a promise
   try {
     const results = await db.query('SELECT * FROM restaurants');
-    console.log(results);
+
     response.status(200).send({
       status: 'success',
       results: results.rows.length,
@@ -48,14 +48,22 @@ app.get('/api/v1/restaurants', async (request, response) => {
 });
 
 // Get a restaurant
-app.get('/api/v1/restaurants/:id', (request, response) => {
-  console.log(request.params);
-  response.status(200).json({
-    staus: 'success',
-    data: {
-      restaurant: 'mcdonalds'
-    }
-  })
+app.get('/api/v1/restaurants/:id', async (request, response) => {
+  console.log(request.params.id);
+
+  try {
+    const results = await db.query(`SELECT * FROM restaurants WHERE id=${request.params.id}`);
+    console.log(results.rows);
+    response.status(200).json({
+      staus: 'success',
+      data: {
+        restaurant: results.rows,
+      }
+    })
+  } catch (error) {
+    console.log('ERR: Get A Restaurant,', error);
+  }
+
 });
 
 // Create A Restaurant
