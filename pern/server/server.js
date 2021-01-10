@@ -30,14 +30,21 @@ app.use(express.json());
 // get all restaurants
 app.get('/api/v1/restaurants', async (request, response) => {
   // returns a promise
-  const results = await db.query('SELECT * FROM restaurants');
-  console.log(results.rows);
-  response.status(200).send({
-    status: 'success',
-    data: {
-      restaurant: ['mcdonalds', 'wendys', 'in-n-out', 'taco bell']
-    }
-  });
+  try {
+    const results = await db.query('SELECT * FROM restaurants');
+    console.log(results);
+    response.status(200).send({
+      status: 'success',
+      results: results.rows.length,
+      data: {
+        restaurant: results.rows
+      }
+    });
+  } catch (error) {
+    console.log('ERR: get all restaurants', error);
+    response.status(400)
+  }
+
 });
 
 // Get a restaurant
