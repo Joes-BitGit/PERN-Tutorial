@@ -2,7 +2,7 @@
 // responsibility: creating and init express app, starting and listening to given port
 require('dotenv').config();
 
-// Express framewor entry point
+// Express framework entry point
 const express = require('express');
 
 // Imports db/index.js
