@@ -29,8 +29,9 @@ app.use(express.json());
 // express route handlers
 // get all restaurants
 app.get('/api/v1/restaurants', async (request, response) => {
+  // returns a promise
   const results = await db.query('SELECT * FROM restaurants');
-  console.log(results);
+  console.log(results.rows);
   response.status(200).send({
     status: 'success',
     data: {
