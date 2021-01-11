@@ -1,3 +1,4 @@
+// connecting to db with node-postgres package
 const { Pool } = require('pg');
 
 const pool = new Pool();

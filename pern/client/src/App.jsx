@@ -9,6 +9,7 @@ import UpdatePage from './routes/UpdatePage';
 const App = () => {
   return (
     <RestaurantsContextProvider>
+      {/* Bootstrap class */}
       <div className='container'>
         <Router>
           <Switch>
