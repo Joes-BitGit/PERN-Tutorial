@@ -1,6 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import RestaurantFinder from '../apis/RestaurantFinder';
 
 const RestaurantList = () => {
+
+  // fetch from backend server
+  // as soon as the components mounts onto screen
+  useEffect(() => {
+    // useEffect is synchronous to avoid race conditions async must be used inside the hook
+    async function fetchData() {
+      // You can await here
+      try {
+        // axios instance
+        const response = await RestaurantFinder.get('/');
+        console.log(response);
+      } catch (err) {
+        console.log('ERR, RestaurantList.jsx: ', err);
+      }
+    }
+    fetchData();
+  }, []); // effect doesn't need props or state also to not rerender everytime component mounts
   return (
     <div className='list-group'>
       <table className="table table-dark table-hover">
