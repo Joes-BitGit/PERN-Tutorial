@@ -1,24 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import RestaurantFinder from '../apis/RestaurantFinder';
+import { RestaurantsContext } from '../context/RestaurantsContext';
 
 const RestaurantList = () => {
+
+  const { restaurants, setRestaurants } = useContext(RestaurantsContext);
 
   // fetch from backend server
   // as soon as the components mounts onto screen
   useEffect(() => {
     // useEffect is synchronous to avoid race conditions async must be used inside the hook
-    async function fetchData() {
+    const fetchData = async () => {
       // You can await here
       try {
         // axios instance
         const response = await RestaurantFinder.get('/');
-        console.log(response);
+        // set our state
+        setRestaurants(response.data.data.restaurant);
+
       } catch (err) {
         console.log('ERR, RestaurantList.jsx: ', err);
       }
     }
     fetchData();
   }, []); // effect doesn't need props or state also to not rerender everytime component mounts
+
   return (
     <div className='list-group'>
       <table className="table table-dark table-hover">
@@ -33,7 +39,7 @@ const RestaurantList = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {/* <tr>
             <td>Pho</td>
             <td>Cerritos</td>
             <td>$$</td>
@@ -48,7 +54,7 @@ const RestaurantList = () => {
             <td>rating</td>
             <td><button className="btn btn-warning">Edit</button></td>
             <td><button className="btn btn-danger">Delete</button></td>
-          </tr>
+          </tr> */}
         </tbody>
       </table>
 
