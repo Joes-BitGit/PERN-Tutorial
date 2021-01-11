@@ -9,11 +9,11 @@ const AddRestaurant = () => {
             <input type="text" name="" id="" className="form-control" placeholder='NAME' />
           </div>
           <div className="col">
-            <input type="text" name="" id="" className="form-control" placeholder='location' />
+            <input type="text" name="" id="" className="form-control" placeholder='LOCATION' />
           </div>
           <div className="col">
             <select name="" id="" className='custom-select my-1 mr-sm-2'>
-              <option disabled>Price Range</option>
+              <option disabled>PRICE RANGE</option>
               <option value="1">$</option>
               <option value="2">$$</option>
               <option value="3">$$$</option>
