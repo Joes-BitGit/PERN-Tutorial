@@ -5,6 +5,9 @@ require('dotenv').config();
 // Express framework entry point
 const express = require('express');
 
+// Cors package
+const cors = require('cors')
+
 // Imports db/index.js
 const db = require('./db');
 
@@ -15,6 +18,8 @@ const app = express();
 const morgan = require('morgan');
 
 // express middleware that attaches to the request under body
+app.use(cors());
+
 app.use(express.json());
 
 // middleware: explicit passing is needed
