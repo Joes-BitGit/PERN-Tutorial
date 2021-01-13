@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import RestaurantFinder from '../apis/RestaurantFinder';
 import { RestaurantsContext } from '../context/RestaurantsContext';
 
 const RestaurantList = () => {
 
   const { restaurants, setRestaurants } = useContext(RestaurantsContext);
-
+  let history = useHistory();
   // fetch from backend server
   // as soon as the components mounts onto screen
   useEffect(() => {
@@ -24,6 +25,19 @@ const RestaurantList = () => {
     }
     fetchData();
   }, []); // effect doesn't need props or state also to not rerender everytime component mounts
+
+  const handleDelete = async (id) => {
+    // logic
+    try {
+      const response = await RestaurantFinder.delete(`/${id}`);
+
+      setRestaurants(restaurants.filter((restaurant) => {
+        return restaurant.id !== id
+      }))
+    } catch (err) {
+      console.log('ERR, handleDelete: ', err);
+    }
+  }
 
   return (
     <div className='list-group'>
@@ -52,31 +66,15 @@ const RestaurantList = () => {
                     <button className="btn btn-warning">Edit</button>
                   </td>
                   <td>
-                    <button className="btn btn-danger">Delete</button>
+                    {/* reference of a function not the function itself */}
+                    <button onClick={() => handleDelete(rest.id)} className="btn btn-danger">Delete</button>
                   </td>
                 </tr>
               )
             })
           }
-          {/* <tr>
-            <td>Pho</td>
-            <td>Cerritos</td>
-            <td>$$</td>
-            <td>rating</td>
-            <td><button className="btn btn-warning">Edit</button></td>
-            <td><button className="btn btn-danger">Delete</button></td>
-          </tr>
-          <tr>
-            <td>Pho</td>
-            <td>Cerritos</td>
-            <td>$$</td>
-            <td>rating</td>
-            <td><button className="btn btn-warning">Edit</button></td>
-            <td><button className="btn btn-danger">Delete</button></td>
-          </tr> */}
         </tbody>
       </table>
-
     </div >
   )
 }
