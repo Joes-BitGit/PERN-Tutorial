@@ -39,6 +39,10 @@ const RestaurantList = () => {
     }
   }
 
+  const handleUpdate = (id) => {
+    history.push(`/restaurants/${id}/update`)
+  }
+
   return (
     <div className='list-group'>
       <table className="table table-dark table-hover">
@@ -63,7 +67,7 @@ const RestaurantList = () => {
                   <td >{"$".repeat(rest.price_range)}</td>
                   <td >reviews ;D</td>
                   <td>
-                    <button className="btn btn-warning">Edit</button>
+                    <button onClick={() => handleUpdate(rest.id)} className="btn btn-warning">Edit</button>
                   </td>
                   <td>
                     {/* reference of a function not the function itself */}
