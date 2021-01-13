@@ -39,6 +39,25 @@ const RestaurantList = () => {
           </tr>
         </thead>
         <tbody>
+          {
+            // if restaurants exists run the function to displays
+            restaurants && restaurants.map((rest) => {
+              return (
+                <tr key={rest.id}>
+                  <td >{rest.name}</td>
+                  <td >{rest.location}</td>
+                  <td >{"$".repeat(rest.price_range)}</td>
+                  <td >reviews ;D</td>
+                  <td>
+                    <button className="btn btn-warning">Edit</button>
+                  </td>
+                  <td>
+                    <button className="btn btn-danger">Delete</button>
+                  </td>
+                </tr>
+              )
+            })
+          }
           {/* <tr>
             <td>Pho</td>
             <td>Cerritos</td>
