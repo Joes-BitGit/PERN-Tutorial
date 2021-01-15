@@ -32,7 +32,6 @@ const UpdateRestaurant = (props) => {
     });
     history.push("/")
     // console.log(updatedRestaurant);
-
   }
 
   return (

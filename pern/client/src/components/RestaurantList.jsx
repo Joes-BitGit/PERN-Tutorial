@@ -39,8 +39,13 @@ const RestaurantList = () => {
     }
   }
 
-  const handleUpdate = (id) => {
+  const handleUpdate = (e, id) => {
+    e.stopPropagation()
     history.push(`/restaurants/${id}/update`)
+  }
+
+  const handleRestaurantSelect = (id) => {
+    history.push(`/restaurants/${id}`)
   }
 
   return (
@@ -61,17 +66,17 @@ const RestaurantList = () => {
             // if restaurants exists run the function to displays
             restaurants && restaurants.map((rest) => {
               return (
-                <tr key={rest.id}>
+                <tr key={rest.id} onClick={() => handleRestaurantSelect(rest.id)}>
                   <td >{rest.name}</td>
                   <td >{rest.location}</td>
                   <td >{"$".repeat(rest.price_range)}</td>
                   <td >reviews ;D</td>
                   <td>
-                    <button onClick={() => handleUpdate(rest.id)} className="btn btn-warning">Edit</button>
+                    <button onClick={(e) => handleUpdate(e, rest.id)} className="btn btn-warning">Edit</button>
                   </td>
                   <td>
                     {/* reference of a function not the function itself */}
-                    <button onClick={() => handleDelete(rest.id)} className="btn btn-danger">Delete</button>
+                    <button onClick={(e) => handleDelete(e, rest.id)} className="btn btn-danger">Delete</button>
                   </td>
                 </tr>
               )

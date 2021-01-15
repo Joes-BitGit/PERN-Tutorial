@@ -3,7 +3,8 @@ import React from 'react'
 const RestaurantDetailPage = () => {
   return (
     <div>
-      DETAIL PAGE
+      {/*  */}
+      <h1 className="text-center">DETAIL PAGE</h1>
     </div>
   )
 }
