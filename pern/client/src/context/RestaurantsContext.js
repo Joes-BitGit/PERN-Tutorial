@@ -6,6 +6,7 @@ export const RestaurantsContextProvider = (props) => {
   // list of restaurants that are fetched from the backend server
   // init: empty array
   const [restaurants, setRestaurants] = useState([]);
+  const [selectedRestaurants, setSelectedRestaurants] = useState(null);
 
   const addRestaurants = (restaurant) => {
     setRestaurants([...restaurants, restaurant]);
@@ -18,7 +19,9 @@ export const RestaurantsContextProvider = (props) => {
       value={{
         restaurants,
         setRestaurants,
-        addRestaurants
+        addRestaurants,
+        selectedRestaurants,
+        setSelectedRestaurants
       }}
     >
       {props.children}
