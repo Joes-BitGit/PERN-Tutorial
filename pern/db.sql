@@ -35,3 +35,20 @@ CREATE TABLE restaurants (
   location VARCHAR(50) NOT NULL,
   price_range INT NOT NULL check(price_range >= 1 AND price_range <= 5)
 );
+
+
+
+
+
+
+CREATE TABLE reviews (
+  id BIGSERIAL NOT NULL PRIMARY KEY,
+  restaurant_id BIGINT NOT NULL REFERENCES restaurants(id),
+  name VARCHAR(50) NOT NULL,
+  review TEXT NOT NULL,
+  rating SMALLINT NOT NULL CHECK(rating >= 1 and rating <= 5)
+);
+
+INSERT INTO reviews (restaurant_id,name,review, rating) values (90,'carl', 'restaurant was awesome', 5);
+
+SELECT * FROM reviews WHERE restaurant_id = 9;
