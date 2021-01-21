@@ -1,7 +1,7 @@
 import React from 'react'
 import StarRating from './StarRating'
 
-const Reviews = () => {
+const Reviews = (props) => {
   return (
     <div className="row row-cols-3 mb-2">
       <div className="card text-white bg-primary mb-3 mr-4" style={{ maxWidth: "30%" }}>
