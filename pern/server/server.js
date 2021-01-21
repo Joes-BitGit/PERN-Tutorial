@@ -118,7 +118,7 @@ app.delete('/api/v1/restaurants/:id', async (req, res) => {
   // console.log(req.params);
   // console.log(res);
   try {
-    const results = await db.query('DELETE FROM restaurants WHERE id=$1', [req.params.id]);
+    const results = await db.query('DELETE FROM restaurants WHERE id=$1;', [req.params.id]);
     // console.log(results);
     res.status(204).json({
       status: 'succes',
@@ -128,6 +128,25 @@ app.delete('/api/v1/restaurants/:id', async (req, res) => {
   }
 
 });
+
+
+app.post('/api/v1/restaurants/:id/addReview', async (req, res) => {
+  try {
+    const results = await db.query(
+      "INSERT INTO reviews (restaurant_id,name,review, rating) values ($1,$2,$3,$4) returning *;",
+      [req.params.id, req.body.name, req.body.review, req.body.rating]);
+    console.log("results addReview: ", results);
+    res.status(201).json({
+      status: 'success',
+      data: {
+        review: results.rows[0]
+      }
+    })
+
+  } catch (err) {
+    console.log("ERR, addReview: ", err);
+  }
+})
 
 const PORT = process.env.PORT || 9001;
 
