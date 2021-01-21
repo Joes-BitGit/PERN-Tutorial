@@ -17,7 +17,7 @@ const RestaurantDetailPage = () => {
       try {
         // retrieve data restaurant 
         const response = await RestaurantFinder.get(`/${id}`);
-        console.log(response.data);
+        console.log("fetch data detailpage:", response.data);
         // store it in this global state
         setSelectedRestaurants(response.data.data);
       } catch (err) {
@@ -31,8 +31,10 @@ const RestaurantDetailPage = () => {
     <div>
       {selectedRestaurants && (
         <>
+          <h1 className="text-center display-1">{selectedRestaurants.restaurant.name}</h1>
+
           <div className="mt-3">
-            <Reviews reviews={selectedRestaurants} />
+            <Reviews reviews={selectedRestaurants.review} />
 
           </div>
           <AddReview />
