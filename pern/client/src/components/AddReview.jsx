@@ -1,10 +1,30 @@
 import React, { useState } from 'react'
+import { useHistory, useLocation, useParams } from 'react-router-dom';
+import RestaurantFinder from '../apis/RestaurantFinder';
 
 const AddReview = () => {
+  const { id } = useParams();
+  const history = useHistory();
+  const location = useLocation();
   // 3 states: for each input field
+  // getter and setter
   const [name, setName] = useState('');
   const [rating, setRating] = useState('RATING');
   const [review, setReview] = useState('');
+
+  const handleSubmitReview = (e) => {
+    e.preventDefault();
+    // url, body
+    RestaurantFinder.post(`/${id}/addReview`, {
+      name,
+      review,
+      rating
+    })
+    // history.push('/');
+
+    // history.push(location.pathname);
+    window.location = window.location.pathname;
+  }
 
   return (
     <div className="mb-2">
@@ -30,7 +50,7 @@ const AddReview = () => {
           <label htmlFor="Review">REVIEW</label>
           <textarea id="review" cols="30" rows="10" className="form-control" value={review} onChange={e => setReview(e.target.value)}></textarea>
         </div>
-        <button className="btn btn-primary">SUBMIT</button>
+        <button type='submit' onClick={handleSubmitReview} className="btn btn-primary">SUBMIT</button>
       </form>
     </div>
   )

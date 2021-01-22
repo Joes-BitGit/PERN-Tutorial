@@ -7,7 +7,7 @@ import Reviews from '../components/Reviews';
 import { RestaurantsContext } from '../context/RestaurantsContext';
 
 const RestaurantDetailPage = () => {
-  // paramteres of the the rotuing
+  // parameters of the routing
   const { id } = useParams();
   const { selectedRestaurants, setSelectedRestaurants } = useContext(RestaurantsContext);
 

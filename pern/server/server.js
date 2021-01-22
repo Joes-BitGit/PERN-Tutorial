@@ -135,7 +135,7 @@ app.post('/api/v1/restaurants/:id/addReview', async (req, res) => {
     const results = await db.query(
       "INSERT INTO reviews (restaurant_id,name,review, rating) values ($1,$2,$3,$4) returning *;",
       [req.params.id, req.body.name, req.body.review, req.body.rating]);
-    console.log("results addReview: ", results);
+    // console.log("results addReview: ", results);
     res.status(201).json({
       status: 'success',
       data: {
