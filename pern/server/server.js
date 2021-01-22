@@ -36,8 +36,8 @@ app.use(express.json());
 app.get('/api/v1/restaurants', async (request, response) => {
   // returns a promise
   try {
-    const results = await db.query('SELECT * FROM restaurants');
-
+    // const results = await db.query('SELECT * FROM restaurants');
+    const results = await db.query("SELECT * FROM restaurants LEFT JOIN (SELECT restaurant_id, COUNT(*), TRUNC(AVG(rating),1) AS average_rating FROM reviews GROUP BY restaurant_id) reviews ON restaurants.id = reviews.restaurant_id;");
     response.status(200).send({
       status: 'success',
       results: results.rows.length,

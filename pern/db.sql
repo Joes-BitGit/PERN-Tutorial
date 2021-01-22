@@ -52,3 +52,17 @@ CREATE TABLE reviews (
 INSERT INTO reviews (restaurant_id,name,review, rating) values (90,'carl', 'restaurant was awesome', 5);
 
 SELECT * FROM reviews WHERE restaurant_id = 9;
+
+SELECT COUNT(*) FROM reviews WHERE restaurant_id=9;
+
+SELECT TRUNC(AVG(rating),2) AS avg_rating FROM reviews WHERE restaurant_id=9;
+
+SELECT location, COUNT(location) FROM restaurants GROUP BY location;
+
+SELECT restaurant_id, COUNT(restaurant_id) FROM reviews GROUP BY restaurant_id;
+
+-- JOINS
+-- LEFT JOIN, RIGHT JOIN, etc.
+SELECT * FROM restaurants INNER JOIN reviews ON restaurants.id = reviews.restaurant_id;
+
+SELECT * FROM restaurants LEFT JOIN (SELECT restaurant_id, COUNT(*), TRUNC(AVG(rating),1) AS average_rating FROM reviews GROUP BY restaurant_id) reviews ON restaurants.id = reviews.restaurant_id;
