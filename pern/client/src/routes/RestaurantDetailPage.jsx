@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import RestaurantFinder from '../apis/RestaurantFinder';
 import AddReview from '../components/AddReview';
 import Reviews from '../components/Reviews';
+import StarRating from '../components/StarRating';
 
 import { RestaurantsContext } from '../context/RestaurantsContext';
 
@@ -17,7 +18,7 @@ const RestaurantDetailPage = () => {
       try {
         // retrieve data restaurant 
         const response = await RestaurantFinder.get(`/${id}`);
-        console.log("fetch data detailpage:", response.data);
+        // console.log("fetch data detailpage:", response.data);
         // store it in this global state
         setSelectedRestaurants(response.data.data);
       } catch (err) {
@@ -32,6 +33,14 @@ const RestaurantDetailPage = () => {
       {selectedRestaurants && (
         <>
           <h1 className="text-center display-1">{selectedRestaurants.restaurant.name}</h1>
+          {
+            !selectedRestaurants.restaurant.count ?
+              <span className='text-warning'>0 Reviews</span> :
+              <div className="text-center text-warning">
+                <StarRating rating={selectedRestaurants.restaurant.average_rating} />
+                ({selectedRestaurants.restaurant.count})
+              </div>
+          }
 
           <div className="mt-3">
             <Reviews reviews={selectedRestaurants.review} />
