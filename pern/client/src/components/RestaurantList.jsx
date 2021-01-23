@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import RestaurantFinder from '../apis/RestaurantFinder';
 import { RestaurantsContext } from '../context/RestaurantsContext';
+import StarRating from './StarRating';
 
 const RestaurantList = () => {
 
@@ -26,6 +27,8 @@ const RestaurantList = () => {
     fetchData();
   }, []); // effect doesn't need props or state also to not rerender everytime component mounts
 
+
+
   const handleDelete = async (id) => {
     // logic
     try {
@@ -46,6 +49,20 @@ const RestaurantList = () => {
 
   const handleRestaurantSelect = (id) => {
     history.push(`/restaurants/${id}`)
+  }
+
+  const renderRating = (restaurant) => {
+    if (!restaurant.count) {
+      return <span className="text-warning">0 Reviews</span>
+    } else {
+      return (
+        <>
+          <StarRating rating={restaurant.average_rating} />
+          <span className="text-warning ml-1">({restaurant.count})</span>
+        </>
+      );
+    }
+
   }
 
   return (
@@ -70,7 +87,7 @@ const RestaurantList = () => {
                   <td >{rest.name}</td>
                   <td >{rest.location}</td>
                   <td >{"$".repeat(rest.price_range)}</td>
-                  <td >reviews ;D</td>
+                  <td >{renderRating(rest)}</td>
                   <td>
                     <button onClick={(e) => handleUpdate(e, rest.id)} className="btn btn-warning">Edit</button>
                   </td>
