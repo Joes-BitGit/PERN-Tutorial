@@ -29,7 +29,8 @@ const RestaurantList = () => {
 
 
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (e, id) => {
+    e.stopPropagation()
     // logic
     try {
       const response = await RestaurantFinder.delete(`/${id}`);
