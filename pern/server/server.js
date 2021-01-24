@@ -148,6 +148,7 @@ app.post('/api/v1/restaurants/:id/addReview', async (req, res) => {
   }
 })
 
+// Production ready
 const PORT = process.env.PORT || 9001;
 
 app.listen(PORT, () => {
