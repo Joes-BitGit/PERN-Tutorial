@@ -24,6 +24,7 @@ const RestaurantList = () => {
         console.log('ERR, RestaurantList.jsx: ', err);
       }
     }
+    // Make sure to call the function
     fetchData();
   }, []); // effect doesn't need props or state also to not rerender everytime component mounts
 

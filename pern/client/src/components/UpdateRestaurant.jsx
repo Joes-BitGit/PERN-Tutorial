@@ -36,7 +36,6 @@ const UpdateRestaurant = (props) => {
 
   return (
     <div>
-
       <form action="">
         <div className="form-group">
           <label htmlFor="name">NAME</label>
